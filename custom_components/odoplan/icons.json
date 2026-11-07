@@ -1,0 +1,33 @@
+{
+  "entity": {
+    "sensor": {
+      "buffer": { "default": "mdi:scale-balance" },
+      "status": {
+        "default": "mdi:check-circle",
+        "state": { "warning": "mdi:alert", "critical": "mdi:alert-octagon" }
+      },
+      "week_left": { "default": "mdi:calendar-week" },
+      "month_left": { "default": "mdi:calendar-month" },
+      "next_month": { "default": "mdi:calendar-arrow-right" },
+      "odometer": { "default": "mdi:counter" },
+      "last_reading": { "default": "mdi:calendar-check" },
+      "driven": { "default": "mdi:road-variant" },
+      "allowed": { "default": "mdi:road" },
+      "pace": { "default": "mdi:speedometer" },
+      "everyday": { "default": "mdi:car-clock" },
+      "contract_left": { "default": "mdi:file-document-outline" },
+      "contract_projected": { "default": "mdi:chart-line" },
+      "contract_end": { "default": "mdi:calendar-end" },
+      "year_projected": { "default": "mdi:chart-timeline-variant" },
+      "excess": { "default": "mdi:road-variant" },
+      "excess_cost": { "default": "mdi:cash-minus" },
+      "next_contract": { "default": "mdi:file-sign" },
+      "electric_share": { "default": "mdi:ev-plug-type2" },
+      "fuel_consumption": { "default": "mdi:gas-station" },
+      "energy_cost": { "default": "mdi:cash" }
+    }
+  },
+  "services": {
+    "add_reading": { "service": "mdi:counter" }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect OdoPlan",
+        "description": "Create a key in OdoPlan on a car's \"Automation\" page. It works for all your cars.",
+        "data": {
+          "url": "Address",
+          "api_key": "Key"
+        },
+        "data_description": {
+          "url": "OdoPlan's address, as a rule the one shown here.",
+          "api_key": "The key from the \"Automation\" page, starting with odo_."
+        }
+      },
+      "reauth_confirm": {
+        "title": "New key for OdoPlan",
+        "description": "The key no longer works, perhaps it was renewed or deleted in OdoPlan. Create a new one on a car's \"Automation\" page.",
+        "data": {
+          "api_key": "Key"
+        },
+        "data_description": {
+          "api_key": "The key from the \"Automation\" page, starting with odo_."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "OdoPlan does not know this key.",
+      "cannot_connect": "OdoPlan cannot be reached at this address."
+    },
+    "abort": {
+      "already_configured": "This account is already set up.",
+      "reauth_successful": "The new key works."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "buffer": {
+        "name": "Buffer"
+      },
+      "status": {
+        "name": "Status",
+        "state": {
+          "good": "On plan",
+          "warning": "Slightly over",
+          "critical": "Over"
+        }
+      },
+      "week_left": {
+        "name": "Left this week"
+      },
+      "month_left": {
+        "name": "Left this month"
+      },
+      "next_month": {
+        "name": "Next month"
+      },
+      "odometer": {
+        "name": "Odometer"
+      },
+      "last_reading": {
+        "name": "Last reading"
+      },
+      "driven": {
+        "name": "Driven since contract start"
+      },
+      "allowed": {
+        "name": "Allowed until today"
+      },
+      "pace": {
+        "name": "Pace"
+      },
+      "everyday": {
+        "name": "Ordinary day"
+      },
+      "contract_left": {
+        "name": "Left in contract"
+      },
+      "contract_projected": {
+        "name": "Forecast at contract end"
+      },
+      "contract_end": {
+        "name": "Contract end"
+      },
+      "year_projected": {
+        "name": "Forecast for the contract year"
+      },
+      "excess": {
+        "name": "Extra kilometres"
+      },
+      "excess_cost": {
+        "name": "Extra kilometre cost"
+      },
+      "next_contract": {
+        "name": "Next contract"
+      },
+      "electric_share": {
+        "name": "Driven electrically"
+      },
+      "fuel_consumption": {
+        "name": "Fuel consumption"
+      },
+      "energy_cost": {
+        "name": "Energy per 100 km"
+      }
+    }
+  },
+  "services": {
+    "add_reading": {
+      "name": "Enter odometer",
+      "description": "Enters a car's odometer in OdoPlan. Sent again the same day, it corrects that day's reading.",
+      "fields": {
+        "device_id": {
+          "name": "Car",
+          "description": "The car in OdoPlan."
+        },
+        "km": {
+          "name": "Odometer",
+          "description": "The odometer in km; parts of a kilometre are dropped."
+        },
+        "date": {
+          "name": "Day",
+          "description": "Today if left empty."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_car": {
+      "message": "This device is not a car of OdoPlan."
+    },
+    "reading_refused": {
+      "message": "OdoPlan did not take the reading: {message}"
+    }
+  }
+}

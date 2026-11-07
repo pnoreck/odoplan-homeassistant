@@ -1,0 +1,20 @@
+add_reading:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: odoplan
+    km:
+      required: true
+      example: 44187
+      selector:
+        number:
+          min: 0
+          max: 9999999
+          mode: box
+          unit_of_measurement: km
+    date:
+      required: false
+      selector:
+        date:

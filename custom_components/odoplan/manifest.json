@@ -1,0 +1,12 @@
+{
+  "domain": "odoplan",
+  "name": "OdoPlan",
+  "codeowners": ["@pnoreck"],
+  "config_flow": true,
+  "documentation": "https://github.com/pnoreck/odoplan-homeassistant",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/pnoreck/odoplan-homeassistant/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,136 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connecter OdoPlan",
+        "description": "Crée une clé dans OdoPlan sous « Automatisation » d’une voiture. Elle vaut pour toutes tes voitures.",
+        "data": {
+          "url": "Adresse",
+          "api_key": "Clé"
+        },
+        "data_description": {
+          "url": "L’adresse d’OdoPlan, en général celle indiquée.",
+          "api_key": "La clé de la page « Automatisation », elle commence par odo_."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Nouvelle clé pour OdoPlan",
+        "description": "La clé ne fonctionne plus, peut-être a-t-elle été renouvelée ou supprimée dans OdoPlan. Crée-en une nouvelle sous « Automatisation » d’une voiture.",
+        "data": {
+          "api_key": "Clé"
+        },
+        "data_description": {
+          "api_key": "La clé de la page « Automatisation », elle commence par odo_."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "OdoPlan ne connaît pas cette clé.",
+      "cannot_connect": "OdoPlan n’est pas joignable à cette adresse."
+    },
+    "abort": {
+      "already_configured": "Ce compte est déjà configuré.",
+      "reauth_successful": "La nouvelle clé fonctionne."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "buffer": {
+        "name": "Réserve"
+      },
+      "status": {
+        "name": "Statut",
+        "state": {
+          "good": "Dans le plan",
+          "warning": "Légèrement au-dessus",
+          "critical": "Au-dessus"
+        }
+      },
+      "week_left": {
+        "name": "Reste cette semaine"
+      },
+      "month_left": {
+        "name": "Reste ce mois"
+      },
+      "next_month": {
+        "name": "Mois prochain"
+      },
+      "odometer": {
+        "name": "Kilométrage"
+      },
+      "last_reading": {
+        "name": "Dernier relevé"
+      },
+      "driven": {
+        "name": "Parcouru depuis le début du contrat"
+      },
+      "allowed": {
+        "name": "Autorisé à ce jour"
+      },
+      "pace": {
+        "name": "Rythme"
+      },
+      "everyday": {
+        "name": "Jour normal"
+      },
+      "contract_left": {
+        "name": "Reste du contrat"
+      },
+      "contract_projected": {
+        "name": "Prévision fin de contrat"
+      },
+      "contract_end": {
+        "name": "Fin de contrat"
+      },
+      "year_projected": {
+        "name": "Prévision année de contrat"
+      },
+      "excess": {
+        "name": "Kilomètres supplémentaires"
+      },
+      "excess_cost": {
+        "name": "Coût des kilomètres supplémentaires"
+      },
+      "next_contract": {
+        "name": "Prochain contrat"
+      },
+      "electric_share": {
+        "name": "Roulé en électrique"
+      },
+      "fuel_consumption": {
+        "name": "Consommation"
+      },
+      "energy_cost": {
+        "name": "Énergie aux 100 km"
+      }
+    }
+  },
+  "services": {
+    "add_reading": {
+      "name": "Saisir le kilométrage",
+      "description": "Saisit le kilométrage d’une voiture dans OdoPlan. Envoyé à nouveau le même jour, il corrige le relevé du jour.",
+      "fields": {
+        "device_id": {
+          "name": "Voiture",
+          "description": "La voiture dans OdoPlan."
+        },
+        "km": {
+          "name": "Kilométrage",
+          "description": "Le kilométrage en km ; les fractions de kilomètre sont ignorées."
+        },
+        "date": {
+          "name": "Jour",
+          "description": "Aujourd’hui si vide."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_car": {
+      "message": "Cet appareil n’est pas une voiture d’OdoPlan."
+    },
+    "reading_refused": {
+      "message": "OdoPlan n’a pas accepté le relevé : {message}"
+    }
+  }
+}

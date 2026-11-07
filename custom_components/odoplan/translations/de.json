@@ -1,0 +1,136 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "OdoPlan verbinden",
+        "description": "Erzeuge in OdoPlan bei einem Auto unter «Automatisierung» einen Schlüssel. Er gilt für alle deine Autos.",
+        "data": {
+          "url": "Adresse",
+          "api_key": "Schlüssel"
+        },
+        "data_description": {
+          "url": "Die Adresse von OdoPlan, in der Regel die vorgegebene.",
+          "api_key": "Der Schlüssel von der Seite «Automatisierung», beginnt mit odo_."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Neuer Schlüssel für OdoPlan",
+        "description": "Der Schlüssel funktioniert nicht mehr, vielleicht wurde er in OdoPlan erneuert oder gelöscht. Erzeuge bei einem Auto unter «Automatisierung» einen neuen.",
+        "data": {
+          "api_key": "Schlüssel"
+        },
+        "data_description": {
+          "api_key": "Der Schlüssel von der Seite «Automatisierung», beginnt mit odo_."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "OdoPlan kennt diesen Schlüssel nicht.",
+      "cannot_connect": "OdoPlan ist unter dieser Adresse nicht erreichbar."
+    },
+    "abort": {
+      "already_configured": "Dieses Konto ist schon eingerichtet.",
+      "reauth_successful": "Der neue Schlüssel funktioniert."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "buffer": {
+        "name": "Polster"
+      },
+      "status": {
+        "name": "Status",
+        "state": {
+          "good": "Im Plan",
+          "warning": "Leicht darüber",
+          "critical": "Darüber"
+        }
+      },
+      "week_left": {
+        "name": "Woche noch frei"
+      },
+      "month_left": {
+        "name": "Monat noch frei"
+      },
+      "next_month": {
+        "name": "Nächster Monat"
+      },
+      "odometer": {
+        "name": "Kilometerstand"
+      },
+      "last_reading": {
+        "name": "Letzter Eintrag"
+      },
+      "driven": {
+        "name": "Gefahren seit Vertragsbeginn"
+      },
+      "allowed": {
+        "name": "Erlaubt bis heute"
+      },
+      "pace": {
+        "name": "Tempo"
+      },
+      "everyday": {
+        "name": "Normaler Tag"
+      },
+      "contract_left": {
+        "name": "Vertrag noch frei"
+      },
+      "contract_projected": {
+        "name": "Prognose Vertragsende"
+      },
+      "contract_end": {
+        "name": "Vertragsende"
+      },
+      "year_projected": {
+        "name": "Prognose Vertragsjahr"
+      },
+      "excess": {
+        "name": "Mehrkilometer"
+      },
+      "excess_cost": {
+        "name": "Mehrkilometer-Kosten"
+      },
+      "next_contract": {
+        "name": "Nächster Vertrag"
+      },
+      "electric_share": {
+        "name": "Elektrisch gefahren"
+      },
+      "fuel_consumption": {
+        "name": "Verbrauch"
+      },
+      "energy_cost": {
+        "name": "Energie pro 100 km"
+      }
+    }
+  },
+  "services": {
+    "add_reading": {
+      "name": "Kilometerstand eintragen",
+      "description": "Trägt den Kilometerstand eines Autos in OdoPlan ein. Kommt am selben Tag ein neuer Wert, wird der Eintrag korrigiert.",
+      "fields": {
+        "device_id": {
+          "name": "Auto",
+          "description": "Das Auto in OdoPlan."
+        },
+        "km": {
+          "name": "Kilometerstand",
+          "description": "Der Stand in km; Teile eines Kilometers fallen weg."
+        },
+        "date": {
+          "name": "Tag",
+          "description": "Leer heisst heute."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_car": {
+      "message": "Dieses Gerät ist kein Auto aus OdoPlan."
+    },
+    "reading_refused": {
+      "message": "OdoPlan hat den Stand nicht übernommen: {message}"
+    }
+  }
+}
