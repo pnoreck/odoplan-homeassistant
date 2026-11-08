@@ -1,66 +1,64 @@
-# OdoPlan für Home Assistant
+# OdoPlan for Home Assistant
 
-[OdoPlan](https://www.odoplan.ch) rechnet dein Kilometerkontingent für Leasing oder Versicherung auf jeden Tag herunter. Diese Integration holt die Zahlen deiner Autos als Sensoren nach Home Assistant und trägt den Kilometerstand auf Wunsch automatisch ein.
+[OdoPlan](https://www.odoplan.ch) breaks your kilometre allowance for a lease or an insurance policy down to every single day. This integration brings your cars' numbers into Home Assistant as sensors and, if you like, enters the odometer for you.
 
-*English below.*
+## What you get
 
-## Was du bekommst
+One device per car, with these sensors:
 
-Pro Auto ein Gerät mit diesen Sensoren:
-
-| Sensor | Bedeutung |
+| Sensor | Meaning |
 |---|---|
-| Polster | Kilometer vor (positiv) oder hinter (negativ) dem Plan |
-| Status | Im Plan, leicht darüber oder darüber |
-| Woche noch frei / Monat noch frei | Was du bis Sonntag bzw. Monatsende noch fahren kannst |
-| Nächster Monat | Monatsbudget für den nächsten Monat |
-| Kilometerstand, Letzter Eintrag | Der zuletzt eingetragene Stand und sein Datum |
-| Gefahren seit Vertragsbeginn, Erlaubt bis heute | Die beiden Linien des Diagramms |
-| Tempo, Normaler Tag | km pro Tag zuletzt und ohne Ferien und lange Fahrten |
-| Vertrag noch frei, Prognose Vertragsende, Vertragsende | nur mit Vertragsdauer |
-| Prognose Vertragsjahr | Wo du am Ende des Vertragsjahrs landest |
-| Mehrkilometer, Mehrkilometer-Kosten | Was am Ende zu viel wäre und was es kostet (Kosten nur mit Preis pro Mehrkilometer) |
-| Nächster Vertrag | Vorgeschlagenes Kontingent pro Jahr |
-| Elektrisch gefahren | nur Plug-in-Hybrid |
-| Verbrauch, Energie pro 100 km | aus Tank- und Ladevorgängen |
+| Buffer | Kilometres ahead of (positive) or behind (negative) plan |
+| Status | On plan, slightly over or over |
+| Left this week / Left this month | What you can still drive until Sunday or the end of the month |
+| Next month | The budget for next month |
+| Odometer, Last reading | The latest reading and its date |
+| Driven since contract start, Allowed until today | The two lines of the chart in OdoPlan |
+| Pace, Ordinary day | Kilometres per day lately, and without holidays and long trips |
+| Left in contract, Forecast at contract end, Contract end | Only with a contract length |
+| Forecast for the contract year | Where you will land at the end of the contract year |
+| Extra kilometres, Extra kilometre cost | What would be too much in the end and what it would cost (the cost only with a price per extra kilometre) |
+| Next contract | The suggested allowance per year |
+| Driven electrically | Plug-in hybrids only |
+| Fuel consumption, Energy per 100 km | From fuel stops and charging sessions |
 
-Dazu die Aktion **OdoPlan: Kilometerstand eintragen** (`odoplan.add_reading`). Home Assistant fragt OdoPlan alle 15 Minuten nach den Zahlen.
+Plus the action **OdoPlan: Enter odometer** (`odoplan.add_reading`). Home Assistant fetches the numbers from OdoPlan every 15 minutes. The entities are translated into English, German, French and Italian.
 
 ## Installation
 
-1. In HACS oben rechts ⋮ → *Benutzerdefinierte Repositories*, diese Adresse eintragen, Typ *Integration*.
-2. **OdoPlan** in HACS suchen, herunterladen, Home Assistant neu starten.
-3. *Einstellungen → Geräte & Dienste → Integration hinzufügen → OdoPlan*.
-4. Den Schlüssel eintragen. Du erzeugst ihn in OdoPlan bei einem Auto unter **Automatisierung**; er gilt für alle deine Autos.
+1. In HACS, open ⋮ at the top right → *Custom repositories*, add this repository's address with the type *Integration*.
+2. Search HACS for **OdoPlan**, download it and restart Home Assistant.
+3. Go to *Settings → Devices & services → Add integration → OdoPlan*.
+4. Enter your key. You create it in OdoPlan on a car's **Automation** page; it works for all your cars.
 
-Ohne HACS: den Ordner `custom_components/odoplan` in den Ordner `custom_components` deiner Home-Assistant-Konfiguration kopieren und neu starten.
+Without HACS: copy the folder `custom_components/odoplan` into the `custom_components` folder of your Home Assistant configuration and restart.
 
-## Kilometerstand jeden Abend eintragen
+## Entering the odometer every evening
 
-Kennt Home Assistant den Kilometerstand deines Autos, etwa über die Integration des Herstellers:
+If Home Assistant knows your car's odometer, for example from the manufacturer's integration:
 
 ```yaml
 automation:
-  - alias: "OdoPlan: Kilometerstand eintragen"
+  - alias: "OdoPlan: enter odometer"
     triggers:
       - trigger: time
         at: "22:00:00"
     actions:
       - action: odoplan.add_reading
         data:
-          device_id: DEINE_GERÄTE_ID   # im Aktions-Editor das Auto auswählen
-          km: "{{ states('sensor.dein_auto_mileage') }}"
+          device_id: YOUR_DEVICE_ID   # pick the car in the action editor
+          km: "{{ states('sensor.your_car_mileage') }}"
 ```
 
-Ein Eintrag pro Tag; kommt am selben Tag ein neuer Wert, wird er korrigiert. Wie in der App muss der Stand zu den anderen passen. Wer bisher den `rest_command` aus OdoPlan nutzt, kann ihn durch diese Aktion ersetzen.
+One reading per day; a new value on the same day corrects it. As in the app, the reading has to fit the others. If you use the `rest_command` from OdoPlan's Automation page so far, this action replaces it.
 
-## Beispiel für ein Dashboard
+## Example dashboard
 
 ```yaml
 type: vertical-stack
 cards:
   - type: gauge
-    entity: sensor.familienauto_polster
+    entity: sensor.family_car_buffer
     min: -1000
     max: 1000
     severity:
@@ -69,24 +67,22 @@ cards:
       red: -1000
   - type: entities
     entities:
-      - sensor.familienauto_status
-      - sensor.familienauto_monat_noch_frei
-      - sensor.familienauto_prognose_vertragsende
-      - sensor.familienauto_mehrkilometer_kosten
+      - sensor.family_car_status
+      - sensor.family_car_left_this_month
+      - sensor.family_car_forecast_at_contract_end
+      - sensor.family_car_extra_kilometre_cost
   - type: history-graph
     hours_to_show: 720
     entities:
-      - sensor.familienauto_polster
+      - sensor.family_car_buffer
 ```
 
-Die Namen der Sensoren hängen vom Namen deines Autos und der Sprache von Home Assistant ab.
+The sensors' entity IDs depend on your car's name and on Home Assistant's language.
 
-## Datenschutz
+## Privacy
 
-Die Integration spricht nur mit der Adresse, die du beim Einrichten angibst (in der Regel `https://www.odoplan.ch`), und schickt nur deinen Schlüssel und die Kilometerstände, die du einträgst. Wie OdoPlan mit deinen Daten umgeht, steht in der [Datenschutzerklärung](https://www.odoplan.ch/datenschutz).
+The integration only talks to the address you enter when setting it up (as a rule `https://www.odoplan.ch`) and only sends your key and the readings you enter. How OdoPlan handles your data is described in its [privacy policy](https://www.odoplan.ch/datenschutz).
 
----
+## License
 
-## English
-
-This integration brings the numbers of your cars in [OdoPlan](https://www.odoplan.ch) – buffer, what is left this week and month, forecast at contract end, extra kilometre cost, suggestion for the next contract and more – into Home Assistant as sensors, one device per car, and adds the action `odoplan.add_reading` to enter the odometer. Install it as a custom repository in HACS, then add **OdoPlan** under *Settings → Devices & services* with the key from a car's **Automation** page in OdoPlan. The entities are translated into English, German, French and Italian.
+MIT, see [LICENSE](LICENSE).
